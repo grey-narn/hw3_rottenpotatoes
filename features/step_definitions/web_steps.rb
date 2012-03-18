@@ -42,6 +42,7 @@ When /^(.*) within (.*[^:]):$/ do |step, parent, table_or_string|
 end
 
 Given /^(?:|I )am on (.+)$/ do |page_name|
+  puts "Visiting #{path_to(page_name)}"
   visit path_to(page_name)
 end
 
@@ -100,6 +101,11 @@ end
 
 When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
   attach_file(field, File.expand_path(path))
+end
+
+Then /^(?:|I )should see all of the movies.*$/ do |regexp|
+  all_movies = Movie.all
+  rows.should == all_movies.count
 end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
